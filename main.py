@@ -1,5 +1,7 @@
 import pygame
 import math
+import src.button as button
+import src.UI as UI
 
 w,h=700,500
 
@@ -7,7 +9,6 @@ pygame.init()
 clock=pygame.time.Clock()
 screen=pygame.display.set_mode((w,h))
 
-selected_shape=None
 selected_color=(255,255,0)
 selected_drown_shape=None
 
@@ -18,63 +19,31 @@ drawing=False
 pannel_size=(200,h)
 pannel_start=w-pannel_size[0]
 
+
 canvas=pygame.Surface((w-pannel_size[0],h))
 
 buttons_margin=30
 buttons_size=50
 
+# change to the new UI system
+
 rect_button_pos=(pannel_start+buttons_margin,buttons_margin)
 rect_buton_color=(255,0,0)
 
 circle_pos=(pannel_start+buttons_margin+buttons_size//2,
-                    buttons_margin*2+buttons_size)
+                    buttons_margin*4)
 circle_button_color=(255,0,0)
 
 delete_button_pos=(pannel_start+buttons_margin,
                   buttons_margin*4+buttons_margin)
 delete_button_color=(255,255,0)
-
+#======
 select_button_pos=(pannel_start+buttons_margin,
                    buttons_margin*6+buttons_margin)
 select_button_color=(255,255,0)
 
 def UI_render():
-    #render panner BG
-    pygame.draw.rect(screen,(50,50,50),
-                     (pannel_start,
-                      0,
-                      pannel_size[0],
-                      pannel_size[1]))
-
-    #render 1st button (rect)
-    pygame.draw.rect(screen,rect_buton_color,
-                     (rect_button_pos[0],
-                      rect_button_pos[1],
-                      buttons_size,
-                      buttons_size))
-
-
-    #render 2nd button (circle)
-    pygame.draw.circle(screen,circle_button_color,
-                       (circle_pos[0],
-                        circle_pos[1]),
-                       buttons_size//2)
-
-    #render 3rd button ("delete")
-
-    pygame.draw.rect(screen,delete_button_color,
-                     (delete_button_pos[0],
-                      delete_button_pos[1],
-                      buttons_size,
-                      buttons_size))
-    #render 4th button ("select")
-
-    pygame.draw.rect(screen,select_button_color,(
-                     select_button_pos[0],
-                     select_button_pos[1],
-                     buttons_size,
-                     buttons_size),width=9)
-
+    UI.sidePannel.render(screen)
     pygame.display.flip()
     pass
 
@@ -83,25 +52,25 @@ def check_buttons_click(click_pos):
 
     #check for rect_click
     if rect_button_pos[0]+buttons_size>click_pos[0]>rect_button_pos[0]and rect_button_pos[1]+buttons_size>click_pos[1]>rect_button_pos[1]:
-        print("RECT CLICKED")
+        # print("RECT CLICKED")
         return "rect"
 
     #check for circle click_pos
     click_distance=math.sqrt((circle_pos[0]-click_pos[0])**2+
                              (circle_pos[1]-click_pos[1])**2)
     if click_distance<buttons_size//2:
-        print("CIRCLE CLICKED")
+        # print("CIRCLE CLICKED")
         return "circle"
         pass
 
     #check for delete_click
     if delete_button_pos[0]+buttons_size>click_pos[0]>delete_button_pos[0]and delete_button_pos[1]+buttons_size>click_pos[1]>delete_button_pos[1]:
-        print("DELETE CLICKED")
+        # print("DELETE CLICKED")
         return "delete"
 
     #check for select_click
     if select_button_pos[0]+buttons_size>click_pos[0]>select_button_pos[0]and select_button_pos[1]+buttons_size>click_pos[1]>select_button_pos[1]:
-        print("SELECT CLICKED")
+        # print("SELECT CLICKED")
         return "select"
     pass
 
@@ -178,33 +147,12 @@ while running:
         if event.type==pygame.QUIT:
             running=False
         if event.type==pygame.MOUSEBUTTONDOWN:
-            clicked_button=check_buttons_click(event.pos)
-            if clicked_button!=None:
-                selected_shape=clicked_button
-            # drawing clicking
-            if clicked_button=="rect":
-                rect_buton_color=(0,255,0)
-                circle_button_color=(255,0,0)
-                delete_button_color=(255,255,0)
-                select_button_color=(255,255,0)
-            elif clicked_button=="circle":
-                rect_buton_color=(255,0,0)
-                circle_button_color=(0,255,0)
-                delete_button_color=(255,255,0)
-                select_button_color=(255,255,0)
-            elif clicked_button=="delete":
-                rect_buton_color=(255,0,0)
-                circle_button_color=(255,0,0)
-                delete_button_color=(100,255,0)
-                select_button_color=(255,255,0)
-            elif clicked_button=="select":
-                rect_buton_color=(255,0,0)
-                circle_button_color=(255,0,0)
-                delete_button_color=(255,255,0)
-                select_button_color=(100,255,0)
-
-
-
+            
+            s=UI.sidePannel.is_clicked(event.pos)
+            if s!=None:
+                selected_shape=s
+                print(selected_shape)
+            
             #detect drawing shapes
             elif canvas_clicked(event.pos):
                 if selected_shape=="rect":
@@ -238,6 +186,7 @@ while running:
                                                  drown_shapes[i][3],
                                                  drown_shapes[i][4])
                                 break
+            
 
 
                         
