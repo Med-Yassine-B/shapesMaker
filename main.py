@@ -1,7 +1,8 @@
 import pygame
 import math
-import src.button as button
-import src.UI as UI
+
+import src.ui.UI as UI
+import src.app.app as app
 
 w,h=700,500
 
@@ -9,9 +10,12 @@ pygame.init()
 clock=pygame.time.Clock()
 screen=pygame.display.set_mode((w,h))
 
+
+
 selected_color=(255,255,0)
 selected_drown_shape=None
 
+selected_shape="rect"
 drown_shapes=[]
 start_pos=()
 drawing=False
@@ -27,52 +31,15 @@ buttons_size=50
 
 # change to the new UI system
 
-rect_button_pos=(pannel_start+buttons_margin,buttons_margin)
-rect_buton_color=(255,0,0)
-
-circle_pos=(pannel_start+buttons_margin+buttons_size//2,
-                    buttons_margin*4)
-circle_button_color=(255,0,0)
-
-delete_button_pos=(pannel_start+buttons_margin,
-                  buttons_margin*4+buttons_margin)
-delete_button_color=(255,255,0)
 #======
-select_button_pos=(pannel_start+buttons_margin,
-                   buttons_margin*6+buttons_margin)
-select_button_color=(255,255,0)
 
 def UI_render():
+    app.render(screen)
     UI.sidePannel.render(screen)
     pygame.display.flip()
     pass
 
 
-def check_buttons_click(click_pos):
-
-    #check for rect_click
-    if rect_button_pos[0]+buttons_size>click_pos[0]>rect_button_pos[0]and rect_button_pos[1]+buttons_size>click_pos[1]>rect_button_pos[1]:
-        # print("RECT CLICKED")
-        return "rect"
-
-    #check for circle click_pos
-    click_distance=math.sqrt((circle_pos[0]-click_pos[0])**2+
-                             (circle_pos[1]-click_pos[1])**2)
-    if click_distance<buttons_size//2:
-        # print("CIRCLE CLICKED")
-        return "circle"
-        pass
-
-    #check for delete_click
-    if delete_button_pos[0]+buttons_size>click_pos[0]>delete_button_pos[0]and delete_button_pos[1]+buttons_size>click_pos[1]>delete_button_pos[1]:
-        # print("DELETE CLICKED")
-        return "delete"
-
-    #check for select_click
-    if select_button_pos[0]+buttons_size>click_pos[0]>select_button_pos[0]and select_button_pos[1]+buttons_size>click_pos[1]>select_button_pos[1]:
-        # print("SELECT CLICKED")
-        return "select"
-    pass
 
 def render():
     #===render

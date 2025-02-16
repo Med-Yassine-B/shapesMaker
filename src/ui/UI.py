@@ -1,5 +1,6 @@
-import src.button as button
-import src.pannel as pannel
+import src.ui.button as button
+import src.ui.pannel as pannel
+
 
 w,h=700,500
 buttons_margin=30
@@ -37,6 +38,7 @@ rect_button=button.Button((buttons_margin,buttons_margin))
 rect_button.set_color((129, 204, 0))
 rect_button.val='rect'
 sidePannel.add_child(rect_button)
+sidePannel.select(rect_button)
 
 circle_button=button.Button((buttons_margin,
                     buttons_margin*4))
