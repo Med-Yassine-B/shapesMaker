@@ -27,7 +27,6 @@ class ShapeCircle:
                        self.size//2)
     def is_clicked(self,MPos,pos):
         return (pos[0]-MPos[0])**2 + (pos[1]-MPos[1])**2 <= (self.size)**2
-        pass
 
 
 class Button:
@@ -35,7 +34,7 @@ class Button:
         self.pos=pos
         self.color=(0,255,255)
         self.original_color=tuple(self.color)
-        self.margin:int=None
+        self.margin:int=5
         self.shape:ShapeRect|ShapeCircle=ShapeRect()
         self.parent=None
         self.val=None

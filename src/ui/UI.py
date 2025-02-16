@@ -13,7 +13,6 @@ class SidePanel (pannel.Pannel):
     def is_clicked(self,MPos:tuple):
         if MPos[0]>self.start:
             r=None
-            print("pannel clicked")
             for child in self.children:
                 if  child.shape.is_clicked(MPos,child.pos):
                     r=child.on_click()

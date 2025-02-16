@@ -1,8 +1,8 @@
 import pygame
 import math
 
-import src.ui.UI as UI
 import src.app.app as app
+import src.ui.UI as UI
 
 w,h=700,500
 
@@ -12,19 +12,12 @@ screen=pygame.display.set_mode((w,h))
 
 
 
-selected_color=(255,255,0)
-selected_drown_shape=None
-
-selected_shape="rect"
-drown_shapes=[]
-start_pos=()
-drawing=False
 
 pannel_size=(200,h)
 pannel_start=w-pannel_size[0]
 
 
-canvas=pygame.Surface((w-pannel_size[0],h))
+#canvas=pygame.Surface((w-pannel_size[0],h))
 
 buttons_margin=30
 buttons_size=50
@@ -107,14 +100,20 @@ def start():
     screen.fill((255,255,255))
     render()
     pygame.display.flip()
-
 while running:
 
-    for event in pygame.event.get():
+    events=pygame.event.get()
+    for event in events:
         if event.type==pygame.QUIT:
             running=False
+
+    app.update(events)
+    UI_render()
+
+    clock.tick(60)
+"""
+
         if event.type==pygame.MOUSEBUTTONDOWN:
-            
             s=UI.sidePannel.is_clicked(event.pos)
             if s!=None:
                 selected_shape=s
@@ -129,7 +128,7 @@ while running:
                     start_pos=event.pos
                     drawing=True
                 elif selected_shape=="delete":
-                    for i in range(len(drown_shapes)):
+                    for i in range(len(drown_shapes)-1,-1,-1):
                         if shape_clicked(drown_shapes[i],event.pos):
                             drown_shapes[i]=("deleted")
                     print("used delete")
@@ -153,12 +152,12 @@ while running:
                                                  drown_shapes[i][3],
                                                  drown_shapes[i][4])
                                 break
-            
+          """  
 
 
                         
                         
-
+"""
         #add shape when mouse up
         elif event.type==pygame.MOUSEBUTTONUP:
             if start_pos!=() and canvas_clicked(event.pos):
@@ -168,10 +167,9 @@ while running:
                     add_shape("circle",start_pos,event.pos)
                     pass
             drawing=False
+            """
     #elif event.type==pygame.MOUSEMOTION:
-    render()
-
-    clock.tick(60)
+    #render()
 
 
 
