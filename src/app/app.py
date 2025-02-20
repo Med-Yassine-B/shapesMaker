@@ -1,12 +1,8 @@
 import pygame
 import src.ui.UI as UI
 import src.ui.canvas as Canvas
-import src.app.shape as shape
 
-#list of shapes drown on the canvas
 canvas=Canvas.canvas()
-shapes:list=[shape.Circle(50,50,50)]
-drawing=False
 
 def update(events):
     for event in events:
@@ -21,29 +17,26 @@ def update(events):
                 canvas.start_pos=event.pos
                 if canvas.selected_shape in ["rect","circle"]:
                     canvas.drawing=True
+                    canvas.mousePos=event.pos
+                elif canvas.selected_shape=="select":
+                    canvas.select(event.pos)
+                elif canvas.selected_shape=="delete":
+                    canvas.delete(event.pos)
 
-                if canvas.selected_shape=="rect":
-                    canvas.start_pos=event.pos
-                    print("pos defined")
-                    print(event.pos)
-                    canvas.drawing=True
-                elif canvas.selected_shape=="circle":
-                    canvas.start_pos=event.pos
-                    canvas.drawing=True
 
         elif event.type==pygame.MOUSEBUTTONUP:
             if canvas.is_clicked(event.pos) and canvas.start_pos!=None:
                 canvas.add_shape(event.pos)
-                """
-                if canvas.selected_shape=='rect':
-                    canvas.add_shape("rect",canvas.start_pos,event.pos)
-                elif canvas.selected_shape=="circle":
-                    canvas.add_shape("circle",canvas.start_pos,event.pos)
-                    pass
-                """
             canvas.drawing=False
+        elif event.type==pygame.MOUSEMOTION:
+            if canvas.drawing:
+                canvas.mousePos=event.pos
+            pass
 
 def render(screen):
+    screen.fill((255,255,255))  #fill the screen with white
     canvas.draw_shapes(screen)
+    canvas.draw_preview(screen)
     UI.sidePannel.render(screen)
+    pygame.display.flip()
     pass
