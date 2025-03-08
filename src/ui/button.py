@@ -14,9 +14,12 @@ class ShapeRect:
                         self.size,
                         self.size))
     def is_clicked(self,MPos,pos):
+        self.on_click()
         return (MPos[0]>pos[0] and MPos[0]<pos[0]+self.size) and (MPos[1]>pos[1] and MPos[1]<pos[1]+self.size)
+    def on_click(self):
+        pass
 
-class ShapeCircle:
+class ShapeCircle(ShapeRect):
     def __init__(self):
         self.size=50
 
@@ -47,4 +50,5 @@ class Button:
             self.shape.render(screen,self.pos,self.color)
 
     def on_click(self):
+        print("button clicked")
         pass

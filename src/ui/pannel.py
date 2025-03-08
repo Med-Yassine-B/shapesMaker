@@ -42,11 +42,11 @@ class Pannel:
         x=self.children_margin+self.start
         y=self.children_margin
         for i in range(len(self.children)):
-            
-            self.children[i].pos=(x,y)
-            if i%2==1:
-                y+=self.children[i].shape.size+self.children_margin
-                x=self.start+self.children_margin
-            else:
-                x+=self.children[i].shape.size+self.children_margin
+            if self.children[i].val!=None:
+                self.children[i].pos=(x,y)
+                if i%2==1:
+                    y+=self.children[i].shape.size+self.children_margin
+                    x=self.start+self.children_margin
+                else:
+                    x+=self.children[i].shape.size+self.children_margin
 

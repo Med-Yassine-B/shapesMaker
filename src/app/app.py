@@ -8,6 +8,12 @@ def update(events):
     for event in events:
         if event.type==pygame.MOUSEBUTTONDOWN:
             
+            for i in range(len(UI.windows)):
+                if UI.windows[i]!=None and UI.windows[i].is_clicked(event.pos):
+                    UI.windows[i].on_click(event.pos)
+                    break
+                else:
+                    UI.windows[i]=None
             s=UI.sidePannel.is_clicked(event.pos)
             if s!=None:
                 canvas.selected_shape=s
@@ -38,5 +44,9 @@ def render(screen):
     canvas.draw_shapes(screen)
     canvas.draw_preview(screen)
     UI.sidePannel.render(screen)
+    for window in UI.windows:
+        if window!=None:
+            window.render(screen)
+    
     pygame.display.flip()
     pass
