@@ -30,11 +30,11 @@ class Pannel:
 
     def is_clicked(self,MPos:tuple):
         if MPos[0]>self.start:
+            self.on_click()
             for child in self.children:
                 if  child.shape.is_clicked(MPos,child.pos):
                     child.on_click()
                     break
-            self.on_click()
             return True
         return False
     

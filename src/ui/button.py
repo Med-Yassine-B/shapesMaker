@@ -47,6 +47,4 @@ class Button:
             self.shape.render(screen,self.pos,self.color)
 
     def on_click(self):
-        print("button clicked")
-        return self.val
         pass

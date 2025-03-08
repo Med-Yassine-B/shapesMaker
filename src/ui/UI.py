@@ -4,7 +4,6 @@ import src.ui.pannel as pannel
 
 w,h=700,500
 buttons_margin=30
-
 class SidePanel (pannel.Pannel):
     def __init__(self, w, h):
         super().__init__(w, h)
@@ -15,7 +14,7 @@ class SidePanel (pannel.Pannel):
             r=None
             for child in self.children:
                 if  child.shape.is_clicked(MPos,child.pos):
-                    r=child.on_click()
+                    r=child.val
                     self.select(child)
                     break
             self.on_click()
@@ -57,4 +56,11 @@ select_button.set_color((68, 0, 255))
 select_button.val="select"
 sidePannel.add_child(select_button)
 
+color_button=button.Button((buttons_margin,
+                  buttons_margin*8+buttons_margin))
+color_button.set_color((255, 0, 0))
+def color_button_on_click():
+    print("COLOR")
+color_button.on_click=color_button_on_click
+sidePannel.add_child(color_button)
 
