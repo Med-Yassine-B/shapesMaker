@@ -4,6 +4,10 @@
 
 >the app's **UI** is written from scratch using only **pygame**
 
+![image](https://github.com/user-attachments/assets/2a3a255d-d508-4340-b3ef-237479325945)
+
+
+
 ## How to RUN
 
 **1- clone the repo**
