@@ -24,3 +24,5 @@ class Window:
         self.children.append(child)
     def on_click(self):
         pass
+    def close(self):
+        pass

@@ -3,11 +3,19 @@ import src.ui.UI as UI
 import src.ui.canvas as Canvas
 
 canvas=Canvas.canvas()
+running=True
+
+def select_button():
+    pass
 
 def update(events):
+    global running
     for event in events:
+        if event.type==pygame.QUIT:
+            running=False
+
         if event.type==pygame.MOUSEBUTTONDOWN:
-            
+            select_button()
             for i in range(len(UI.windows)):
                 if UI.windows[i]!=None and UI.windows[i].is_clicked(event.pos):
                     UI.windows[i].on_click(event.pos)
@@ -50,3 +58,18 @@ def render(screen):
     
     pygame.display.flip()
     pass
+
+w,h=700,500
+
+pygame.init()
+clock=pygame.time.Clock()
+screen=pygame.display.set_mode((w,h))
+
+
+def run():
+    while running:
+
+        events=pygame.event.get()
+        update(events)
+        render(screen)
+        clock.tick(60)

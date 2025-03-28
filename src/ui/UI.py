@@ -57,7 +57,7 @@ select_button.set_color((68, 0, 255))
 select_button.val="select"
 sidePannel.add_child(select_button)
 
-"""
+# """
 color_button=button.Button((buttons_margin,
                   buttons_margin*6+buttons_margin))
 color_button.set_color((255, 0, 0))
@@ -66,4 +66,4 @@ def color_button_on_click():
     windows.append(colorWindow)
 color_button.shape.on_click=color_button_on_click
 sidePannel.add_child(color_button)
-"""
+# """
