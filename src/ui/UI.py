@@ -29,7 +29,7 @@ class SidePanel (pannel.Pannel):
 
         self.selected_button=selected
         self.selected_button.color=(0,0,100)
-windows:list=[]
+windows:list[window.Window]=[]
 
 sidePannel=SidePanel(w,h)
 
